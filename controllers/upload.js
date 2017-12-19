@@ -41,7 +41,7 @@ exports.afterUpload = (req, res) => {
     <key>kind</key>
     <string>software-package</string>
     <key>url</key>
-    <string>http://${process.env.HOST}/${url}</string>
+    <string>${url}</string>
     </dict>
     </array>
     <key>metadata</key>
@@ -62,7 +62,7 @@ exports.afterUpload = (req, res) => {
     `
 
     if (extention === '.ipa') {
-      fs.writeFile(`uploads/${file.filename}.plist`, iosPlist(`${process.env.HOST}/uploads/${file.filename}`,
+      fs.writeFile(`uploads/${file.filename}.plist`, iosPlist(`https://${process.env.HOST}/uploads/${file.filename}`,
                                         req.body.bundleID, req.body.bundleVersion, req.body.title), (err) => {
                                           if (err) {
                                             res.status(500).send('Please Try Again')
@@ -70,7 +70,7 @@ exports.afterUpload = (req, res) => {
                                             const obj = {
                                               title: req.body.title,
                                               appURL: file.filename,
-                                              link: `itms-services://?action=download-manifest&url=http://${process.env.DB_HOST}/uploads/${file.filename}.plist`
+                                              link: `itms-services://?action=download-manifest&url=https://${process.env.DB_HOST}/uploads/${file.filename}.plist`
                                             }
                                             res.status(201).send(obj);
                                           }
