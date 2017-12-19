@@ -1,0 +1,19 @@
+{
+  "name": "hostingapp",
+  "version": "0.0.1",
+  "description": "This is server to host ios app and android",
+  "main": "/bin/www",
+  "scripts": {
+    "start": "node ./server"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "dotenv": "^4.0.0",
+    "express": "^4.16.2",
+    "jsonfile": "^4.0.0",
+    "lodash": "^4.17.4",
+    "mongoose": "^4.13.7",
+    "multer": "^1.3.0"
+  }
+}
