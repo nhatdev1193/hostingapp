@@ -41,7 +41,7 @@ exports.afterUpload = (req, res) => {
     <key>kind</key>
     <string>software-package</string>
     <key>url</key>
-    <string>${url}</string>
+    <string>http://${process.env.HOST}/${url}</string>
     </dict>
     </array>
     <key>metadata</key>
@@ -70,7 +70,7 @@ exports.afterUpload = (req, res) => {
                                             const obj = {
                                               title: req.body.title,
                                               appURL: file.filename,
-                                              link: `itms-services://?action=download-manifest&url=https://${process.env.DB_HOST}/uploads/${file.filename}.plist`
+                                              link: `itms-services://?action=download-manifest&url=http://${process.env.DB_HOST}/uploads/${file.filename}.plist`
                                             }
                                             res.status(201).send(obj);
                                           }
