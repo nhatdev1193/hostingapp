@@ -70,7 +70,7 @@ exports.afterUpload = (req, res) => {
                                             const obj = {
                                               title: req.body.title,
                                               appURL: file.filename,
-                                              link: `itms-services://?action=download-manifest&url=https://${process.env.DB_HOST}/uploads/${file.filename}.plist`
+                                              link: `itms-services://?action=download-manifest&url=https://${process.env.HOST}/uploads/${file.filename}.plist`
                                             }
                                             res.status(201).send(obj);
                                           }
@@ -81,7 +81,7 @@ exports.afterUpload = (req, res) => {
       const obj = {
         title: req.body.title,
         appURL: file.filename,
-        link: `https://${process.env.DB_HOST}/uploads/${file.filename}`
+        link: `https://${process.env.HOST}/uploads/${file.filename}`
       }
       res.status(201).send(obj);
     }
