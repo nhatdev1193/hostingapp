@@ -1,0 +1,28 @@
+[
+  {
+    "title": "khanh",
+    "appURL": "1528361465651.ipa",
+    "link": "itms-services://?action=download-manifest&url=https:///uploads/1528361465651.ipa.plist",
+    "date": 1528361465939,
+    "bundleId": "1234",
+    "bundleVersion": "test"
+  },
+  {
+    "title": "khanh",
+    "appURL": "1528360434076.ipa",
+    "link": "itms-services://?action=download-manifest&url=https:///uploads/1528360434076.ipa.plist",
+    "date": 1528360434374
+  },
+  {
+    "title": "",
+    "appURL": "1528360489472.apk",
+    "link": "https:///uploads/1528360489472.apk",
+    "date": 1528360489479
+  },
+  {
+    "title": "das",
+    "appURL": "1528361347423.ipa",
+    "link": "itms-services://?action=download-manifest&url=https:///uploads/1528361347423.ipa.plist",
+    "date": 1528361347706
+  }
+]

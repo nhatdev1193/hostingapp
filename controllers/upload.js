@@ -3,6 +3,7 @@ const path = require('path');
 const fs = require('fs');
 const jsonfile = require('jsonfile');
 const appDB = require('../DB/app.json');
+const listApp = require('../DB/listApp.json')
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, 'uploads/')
@@ -62,28 +63,54 @@ exports.afterUpload = (req, res) => {
     `
 
     if (extention === '.ipa') {
-      fs.writeFile(`uploads/${file.filename}.plist`, iosPlist(`https://${process.env.HOST}/uploads/${file.filename}`,
-                                        req.body.bundleID, req.body.bundleVersion, req.body.title), (err) => {
-                                          if (err) {
-                                            res.status(500).send('Please Try Again')
-                                          } else {
-                                            const obj = {
-                                              title: req.body.title,
-                                              appURL: file.filename,
-                                              link: `itms-services://?action=download-manifest&url=https://${process.env.HOST}/uploads/${file.filename}.plist`
-                                            }
-                                            res.status(201).send(obj);
-                                          }
-                                        })
-    };
-
+      fs.writeFile(`uploads/${file.filename}.plist`, iosPlist(`https://${process.env.HOST}/uploads/${file.filename}`, req.body.bundleID, req.body.bundleVersion, req.body.title),
+        (err) => {
+          if (err) {
+            res.status(500).send('Please Try Again')
+          } else {
+            const obj = {
+              title: req.body.title,
+              appURL: file.filename,
+              link: `itms-services://?action=download-manifest&url=https://${process.env.HOST}/uploads/${file.filename}.plist`
+            };
+            listApp.unshift({
+              title: obj.title,
+              appURL: obj.appURL,
+              link: obj.link,
+              date: Date.now(),
+              bundleId: req.body.bundleID,
+              bundleVersion: req.body.bundleVersion
+            });
+            console.log(listApp);
+            fs.writeFile('./DB/listApp.json', JSON.stringify(listApp), function (err) {
+              if (err) {
+                return console.log(err);
+              }
+              res.status(201).send(obj);
+            });
+          }
+        })
+    }
     if (extention === '.apk') {
       const obj = {
         title: req.body.title,
         appURL: file.filename,
         link: `https://${process.env.HOST}/uploads/${file.filename}`
-      }
-      res.status(201).send(obj);
+      };
+      listApp.unshift({
+        title: obj.title,
+        appURL: obj.appURL,
+        link: obj.link,
+        date: Date.now()
+      });
+      console.log(listApp);
+      fs.writeFile('./DB/listApp.json', JSON.stringify(listApp), function (err) {
+        if (err) {
+          return console.log(err);
+        }
+        res.status(201).send(obj);
+      });
+
     }
   });
 };
