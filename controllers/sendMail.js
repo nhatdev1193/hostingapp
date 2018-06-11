@@ -19,9 +19,9 @@ exports.sendMail = (req, res) => {
   transporter.sendMail(mailOptions, function (err, info) {
     if(err) {
       console.log(err);
-      res.status(500)
+      res.status(500).json({err: 'Co loi'})
     }
     else
-      res.status(200)
+      res.send(200)
   });
 }
